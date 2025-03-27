@@ -9,12 +9,44 @@ btn1.addEventListener("click", function (event) {
     Save();
 });
 
+function validateEmail(email) {
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+function Validate() {
+    if (nameValue === "" || emailValue === "" || ageValue === "") {
+        alert("Iltimos, barcha maydonlarni to'ldiring!");
+        return false;
+    }
+
+    if (!validateEmail(emailValue)) {
+        alert("Iltimos, to'g'ri email kiriting!");
+        return false;
+    }
+
+    if (isNaN(ageValue) || ageValue <= 0) {
+        alert("Yoshingizni musbat son qilib kiriting!");
+        return false;
+    }
+    return true;
+}
+
 function Save() {
+    let nameValue = userName.value.trim();
+    let emailValue = email.value.trim();
+    let ageValue = num.value.trim();
+
+
+    if (!Validate()) {
+        return;
+    }
+
     let user = {
         id: Date.now(),
-        name: userName.value,
-        email: email.value,
-        age: num.value,
+        name: nameValue,
+        email: emailValue,
+        age: ageValue,
         done: false,
     };
 
@@ -52,7 +84,6 @@ function deleteUser(userId) {
 
     renderUsers();
 }
-
 
 function markAsDone(userId) {
     let users = JSON.parse(localStorage.getItem("users")) || [];
