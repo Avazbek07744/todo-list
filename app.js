@@ -15,7 +15,7 @@ function validateEmail(email) {
 }
 
 function Validate() {
-    if (nameValue === "" || emailValue === "" || ageValue === "") {
+    if (userName.value === "" || email.value === "" || num.value === "") {
         alert("Iltimos, barcha maydonlarni to'ldiring!");
         return false;
     }
