@@ -20,12 +20,12 @@ function Validate() {
         return false;
     }
 
-    if (!validateEmail(emailValue)) {
+    if (!validateEmail(email.value)) {
         alert("Iltimos, to'g'ri email kiriting!");
         return false;
     }
 
-    if (isNaN(ageValue) || ageValue <= 0) {
+    if (isNaN(num.value) || num.value <= 0) {
         alert("Yoshingizni musbat son qilib kiriting!");
         return false;
     }
@@ -37,8 +37,16 @@ function Save() {
     let emailValue = email.value.trim();
     let ageValue = num.value.trim();
 
-
     if (!Validate()) {
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let Check = users.some(user => user.name === nameValue || user.email === emailValue);
+
+    if (Check) {
+        alert("Bunday ism yoki email allaqachon mavjud!");
         return;
     }
 
@@ -50,7 +58,6 @@ function Save() {
         done: false,
     };
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
     users.push(user);
     localStorage.setItem("users", JSON.stringify(users));
 
